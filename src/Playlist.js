@@ -416,6 +416,8 @@ export default class {
             info.author_name || "No artist name in server database";
           const author_thumbnail_url =
             info.author_thumbnail_url || "No artist photo in server database";
+          const author_profile =
+            info.author_profile || "No artist profile in server database";
 
           // webaudio specific playout for now.
           const playout = new Playout(
@@ -464,6 +466,7 @@ export default class {
           track.set_friendly_token(friendly_token);
           track.set_author_name(author_name);
           track.set_author_thumbnail_url(author_thumbnail_url);
+          track.set_author_profile(author_profile);
 
           if (muted) {
             this.muteTrack(track);

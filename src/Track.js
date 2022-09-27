@@ -463,9 +463,20 @@ export default class {
     if (widgets.remove) {
       headerChildren.push(removeTrack);
     }
-    if (widgets.removeFromDatabase) {
+
+    if (
+      widgets.removeFromDatabase &&
+      // Example of author profile path:
+      // "author_profile":"/user/Mike/"
+      // How to get the last path token: we need to get "Mike" out of "/user/Mike/"
+      // https://stackoverflow.com/a/16695464/3405291
+      //
+      // The objective is to check whether logged-in user is track creator.
+      this.logged_author === this.author_profile.match(/([^\/]*)\/*$/)[1]
+    ) {
       headerChildren.push(removeTrackFromDatabase);
     }
+
     headerChildren.push(trackName);
     if (widgets.collapse) {
       headerChildren.push(collapseTrack);

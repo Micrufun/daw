@@ -39,7 +39,7 @@ export default class {
     this.author_name = null;
     this.author_thumbnail_url = null;
     this.author_profile = null;
-    this.logged_author = null;
+    this.logged_user = null;
   }
 
   setEventEmitter(ee) {
@@ -264,8 +264,8 @@ export default class {
     this.author_profile = author_profile;
   }
 
-  set_logged_author(logged_author) {
-    this.logged_author = logged_author;
+  set_logged_user(logged_user) {
+    this.logged_user = logged_user;
   }
 
   /*
@@ -472,7 +472,7 @@ export default class {
       // https://stackoverflow.com/a/16695464/3405291
       //
       // The objective is to check whether logged-in user is track creator.
-      this.logged_author === this.author_profile.match(/([^\/]*)\/*$/)[1]
+      this.logged_user === this.author_profile.match(/([^\/]*)\/*$/)[1]
     ) {
       headerChildren.push(removeTrackFromDatabase);
     }
@@ -808,7 +808,7 @@ export default class {
       author_name: this.author_name,
       author_thumbnail_url: this.author_thumbnail_url,
       author_profile: this.author_profile,
-      logged_author: this.logged_author,
+      logged_user: this.logged_user,
     };
 
     if (this.fadeIn) {

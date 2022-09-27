@@ -414,7 +414,7 @@ export default class {
           const author_name = info.author_name || null;
           const author_thumbnail_url = info.author_thumbnail_url || null;
           const author_profile = info.author_profile || null;
-          const logged_author = info.logged_author || null;
+          const logged_user = info.logged_user || null;
 
           // webaudio specific playout for now.
           const playout = new Playout(
@@ -464,7 +464,7 @@ export default class {
           track.set_author_name(author_name);
           track.set_author_thumbnail_url(author_thumbnail_url);
           track.set_author_profile(author_profile);
-          track.set_logged_author(logged_author);
+          track.set_logged_user(logged_user);
 
           if (muted) {
             this.muteTrack(track);

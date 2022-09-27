@@ -35,6 +35,7 @@ export default class {
     this.startTime = 0;
     this.endTime = 0;
     this.stereoPan = 0;
+    this.friendly_token = "No friendly_token in server database";
   }
 
   setEventEmitter(ee) {
@@ -241,6 +242,10 @@ export default class {
   setEffects(effectsGraph) {
     this.effectsGraph = effectsGraph;
     this.playout.setEffects(effectsGraph);
+  }
+
+  set_friendly_token(friendly_token) {
+    this.friendly_token = friendly_token;
   }
 
   /*
@@ -768,6 +773,7 @@ export default class {
       stereoPan: this.stereoPan,
       gain: this.gain,
       effects: this.effectsGraph,
+      friendly_token: this.friendly_token,
     };
 
     if (this.fadeIn) {

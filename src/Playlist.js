@@ -410,6 +410,8 @@ export default class {
           const waveOutlineColor = info.waveOutlineColor || undefined;
           const stereoPan = info.stereoPan || 0;
           const effects = info.effects || null;
+          const friendly_token =
+            info.friendly_token || "No friendly_token in server database";
 
           // webaudio specific playout for now.
           const playout = new Playout(
@@ -454,6 +456,8 @@ export default class {
           if (effects) {
             track.setEffects(effects);
           }
+
+          track.set_friendly_token(friendly_token);
 
           if (muted) {
             this.muteTrack(track);

@@ -401,6 +401,20 @@ export default class {
       [h("i.fas.fa-times")]
     );
 
+    const removeTrackFromDatabase = h(
+      "button.btn.btn-danger.btn-xs.track-remove",
+      {
+        attributes: {
+          type: "button",
+          title: "Remove track from databse",
+        },
+        onclick: () => {
+          this.ee.emit("removeTrackFromDatabase", this);
+        },
+      },
+      [h("i.fas.fa-trash")]
+    );
+
     const trackName = h("span", [this.name]);
 
     const collapseTrack = h(
@@ -423,6 +437,9 @@ export default class {
 
     if (widgets.remove) {
       headerChildren.push(removeTrack);
+    }
+    if (widgets.removeFromDatabase) {
+      headerChildren.push(removeTrackFromDatabase);
     }
     headerChildren.push(trackName);
     if (widgets.collapse) {

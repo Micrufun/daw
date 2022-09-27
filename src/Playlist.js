@@ -412,6 +412,10 @@ export default class {
           const effects = info.effects || null;
           const friendly_token =
             info.friendly_token || "No friendly_token in server database";
+          const author_name =
+            info.author_name || "No artist name in server database";
+          const author_thumbnail_url =
+            info.author_thumbnail_url || "No artist photo in server database";
 
           // webaudio specific playout for now.
           const playout = new Playout(
@@ -458,6 +462,8 @@ export default class {
           }
 
           track.set_friendly_token(friendly_token);
+          track.set_author_name(author_name);
+          track.set_author_thumbnail_url(author_thumbnail_url);
 
           if (muted) {
             this.muteTrack(track);

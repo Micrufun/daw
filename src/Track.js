@@ -36,6 +36,8 @@ export default class {
     this.endTime = 0;
     this.stereoPan = 0;
     this.friendly_token = "No friendly_token in server database";
+    this.author_name = "No artist name in server database";
+    this.author_thumbnail_url = "No artist photo in server database";
   }
 
   setEventEmitter(ee) {
@@ -246,6 +248,14 @@ export default class {
 
   set_friendly_token(friendly_token) {
     this.friendly_token = friendly_token;
+  }
+
+  set_author_name(author_name) {
+    this.author_name = author_name;
+  }
+
+  set_author_thumbnail_url(author_thumbnail_url) {
+    this.author_thumbnail_url = author_thumbnail_url;
   }
 
   /*
@@ -774,6 +784,8 @@ export default class {
       gain: this.gain,
       effects: this.effectsGraph,
       friendly_token: this.friendly_token,
+      author_name: this.author_name,
+      author_thumbnail_url: this.author_thumbnail_url,
     };
 
     if (this.fadeIn) {

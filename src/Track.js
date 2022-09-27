@@ -406,7 +406,7 @@ export default class {
       {
         attributes: {
           type: "button",
-          title: "Remove track from databse",
+          title: "Remove track from database",
         },
         onclick: () => {
           this.ee.emit("removeTrackFromDatabase", this);

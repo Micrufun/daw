@@ -40,6 +40,7 @@ export default class {
     this.author_thumbnail_url = null;
     this.author_profile = null;
     this.logged_user = null;
+    this.uid = null;
   }
 
   setEventEmitter(ee) {
@@ -266,6 +267,10 @@ export default class {
 
   set_logged_user(logged_user) {
     this.logged_user = logged_user;
+  }
+
+  set_uid(uid) {
+    this.uid = uid;
   }
 
   /*
@@ -809,6 +814,7 @@ export default class {
       author_thumbnail_url: this.author_thumbnail_url,
       author_profile: this.author_profile,
       logged_user: this.logged_user,
+      uid: this.uid,
     };
 
     if (this.fadeIn) {

@@ -471,6 +471,8 @@ export default class {
 
     if (
       widgets.removeFromDatabase &&
+      this.logged_user &&
+      this.author_profile &&
       // Example of author profile path:
       // "author_profile":"/user/Mike/"
       // How to get the last path token: we need to get "Mike" out of "/user/Mike/"

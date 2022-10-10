@@ -445,6 +445,12 @@ export default class {
       [h("i.fas.fa-trash")]
     );
 
+    const artistImage = h("img", {
+      src: this.author_thumbnail_url,
+      alt: "Artist photo",
+      height: "24",
+    });
+
     const trackName = h("span", [this.name]);
 
     const collapseTrack = h(
@@ -482,6 +488,10 @@ export default class {
       this.logged_user === this.author_profile.match(/([^\/]*)\/*$/)[1]
     ) {
       headerChildren.push(removeTrackFromDatabase);
+    }
+
+    if (this.author_thumbnail_url) {
+      headerChildren.push(artistImage);
     }
 
     headerChildren.push(trackName);

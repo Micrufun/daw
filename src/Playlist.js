@@ -1021,6 +1021,7 @@ export default class {
           muted: this.mutedTracks.indexOf(track) > -1,
           collapsed,
           height: collapsed ? this.collapsedWaveHeight : this.waveHeight,
+          collapsedHeight: this.collapsedWaveHeight,
           barGap: this.barGap,
           barWidth: this.barWidth,
         })

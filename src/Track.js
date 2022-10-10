@@ -448,7 +448,7 @@ export default class {
     const artistImage = h("img", {
       src: this.author_thumbnail_url,
       alt: "Artist photo",
-      height: `${data.collapsedHeight}-8`, // By playlist Options.
+      height: `${data.collapsedHeight - 8}`, // Passed down by playlist Options.
     });
 
     const trackName = h("span", [this.name]);

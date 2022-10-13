@@ -445,11 +445,15 @@ export default class {
       [h("i.fas.fa-trash")]
     );
 
-    const artistImage = h("img", {
-      src: this.author_thumbnail_url,
-      alt: "Artist photo",
-      height: `${data.collapsedHeight - 8}`, // Passed down by playlist Options.
-    });
+    const artistImage = h(
+      "a",
+      { href: this.author_profile }, // User image has a link to user profile.
+      h("img", {
+        src: this.author_thumbnail_url,
+        alt: "Artist photo",
+        height: `${data.collapsedHeight - 8}`, // Passed down by playlist options.
+      })
+    );
 
     const trackName = h("span", [this.name]);
 
@@ -490,7 +494,7 @@ export default class {
       headerChildren.push(removeTrackFromDatabase);
     }
 
-    if (this.author_thumbnail_url) {
+    if (this.author_thumbnail_url && this.author_profile) {
       headerChildren.push(artistImage);
     }
 

@@ -35,6 +35,12 @@ export default class {
     this.startTime = 0;
     this.endTime = 0;
     this.stereoPan = 0;
+    this.friendly_token = null;
+    this.author_name = null;
+    this.author_thumbnail_url = null;
+    this.author_profile = null;
+    this.logged_user = null;
+    this.uid = null;
   }
 
   setEventEmitter(ee) {
@@ -243,6 +249,30 @@ export default class {
     this.playout.setEffects(effectsGraph);
   }
 
+  set_friendly_token(friendly_token) {
+    this.friendly_token = friendly_token;
+  }
+
+  set_author_name(author_name) {
+    this.author_name = author_name;
+  }
+
+  set_author_thumbnail_url(author_thumbnail_url) {
+    this.author_thumbnail_url = author_thumbnail_url;
+  }
+
+  set_author_profile(author_profile) {
+    this.author_profile = author_profile;
+  }
+
+  set_logged_user(logged_user) {
+    this.logged_user = logged_user;
+  }
+
+  set_uid(uid) {
+    this.uid = uid;
+  }
+
   /*
     startTime, endTime in seconds (float).
     segment is for a highlighted section in the UI.
@@ -401,6 +431,30 @@ export default class {
       [h("i.fas.fa-times")]
     );
 
+    const removeTrackFromDatabase = h(
+      "button.btn.btn-danger.btn-xs.track-remove",
+      {
+        attributes: {
+          type: "button",
+          title: "Remove track from database",
+        },
+        onclick: () => {
+          this.ee.emit("removeTrackFromDatabase", this);
+        },
+      },
+      [h("i.fas.fa-trash")]
+    );
+
+    const artistImage = h(
+      "a",
+      { href: this.author_profile }, // User image has a link to user profile.
+      h("img", {
+        src: this.author_thumbnail_url,
+        alt: "Artist photo",
+        height: `${data.collapsedHeight - 8}`, // Passed down by playlist options.
+      })
+    );
+
     const trackName = h("span", [this.name]);
 
     const collapseTrack = h(
@@ -424,6 +478,26 @@ export default class {
     if (widgets.remove) {
       headerChildren.push(removeTrack);
     }
+
+    if (
+      widgets.removeFromDatabase &&
+      this.logged_user &&
+      this.author_profile &&
+      // Example of author profile path:
+      // "author_profile":"/user/Mike/"
+      // How to get the last path token: we need to get "Mike" out of "/user/Mike/"
+      // https://stackoverflow.com/a/16695464/3405291
+      //
+      // The objective is to check whether logged-in user is track creator.
+      this.logged_user === this.author_profile.match(/([^\/]*)\/*$/)[1]
+    ) {
+      headerChildren.push(removeTrackFromDatabase);
+    }
+
+    if (this.author_thumbnail_url && this.author_profile) {
+      headerChildren.push(artistImage);
+    }
+
     headerChildren.push(trackName);
     if (widgets.collapse) {
       headerChildren.push(collapseTrack);
@@ -751,6 +825,12 @@ export default class {
       stereoPan: this.stereoPan,
       gain: this.gain,
       effects: this.effectsGraph,
+      friendly_token: this.friendly_token,
+      author_name: this.author_name,
+      author_thumbnail_url: this.author_thumbnail_url,
+      author_profile: this.author_profile,
+      logged_user: this.logged_user,
+      uid: this.uid,
     };
 
     if (this.fadeIn) {

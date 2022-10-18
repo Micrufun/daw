@@ -23,6 +23,7 @@ export function init(options = {}, ee = EventEmitter()) {
         stereoPan: true,
         collapse: true,
         remove: true,
+        removeFromDatabase: true,
       },
     },
     colors: {

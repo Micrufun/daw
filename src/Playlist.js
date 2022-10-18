@@ -410,6 +410,12 @@ export default class {
           const waveOutlineColor = info.waveOutlineColor || undefined;
           const stereoPan = info.stereoPan || 0;
           const effects = info.effects || null;
+          const friendly_token = info.friendly_token || null;
+          const author_name = info.author_name || null;
+          const author_thumbnail_url = info.author_thumbnail_url || null;
+          const author_profile = info.author_profile || null;
+          const logged_user = info.logged_user || null;
+          const uid = info.uid || null;
 
           // webaudio specific playout for now.
           const playout = new Playout(
@@ -454,6 +460,13 @@ export default class {
           if (effects) {
             track.setEffects(effects);
           }
+
+          track.set_friendly_token(friendly_token);
+          track.set_author_name(author_name);
+          track.set_author_thumbnail_url(author_thumbnail_url);
+          track.set_author_profile(author_profile);
+          track.set_logged_user(logged_user);
+          track.set_uid(uid);
 
           if (muted) {
             this.muteTrack(track);
@@ -1008,6 +1021,7 @@ export default class {
           muted: this.mutedTracks.indexOf(track) > -1,
           collapsed,
           height: collapsed ? this.collapsedWaveHeight : this.waveHeight,
+          collapsedHeight: this.collapsedWaveHeight,
           barGap: this.barGap,
           barWidth: this.barWidth,
         })

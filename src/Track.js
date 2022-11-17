@@ -599,7 +599,7 @@ export default class {
       "div.controls",
       {
         attributes: {
-          style: `height: ${numChan * data.height}px; width: ${
+          style: `height: ${numChan * data.height + 32}px; width: ${
             data.controls.width
           }px; position: absolute; left: 0; z-index: 10;`,
         },
@@ -825,7 +825,7 @@ export default class {
       {
         attributes: {
           style: `margin-left: ${channelMargin}px; height: ${
-            data.height * numChan
+            data.height * numChan + 32
           }px;`,
         },
       },

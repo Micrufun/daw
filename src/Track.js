@@ -41,6 +41,7 @@ export default class {
     this.author_profile = null;
     this.logged_user = null;
     this.uid = null;
+    this.is_liked = null;
   }
 
   setEventEmitter(ee) {
@@ -271,6 +272,10 @@ export default class {
 
   set_uid(uid) {
     this.uid = uid;
+  }
+
+  set_is_liked(is_liked) {
+    this.is_liked = is_liked;
   }
 
   /*
@@ -578,11 +583,14 @@ export default class {
         controls.push(
           h("div.btn-group", [
             h(
-              "button.btn.btn-danger.btn-xs.track-like",
+              "button.btn.btn-xs.track-like",
               {
                 attributes: {
                   type: "button",
                   title: "Like track",
+                  style: `color: ${
+                    this.is_liked ? "red" : "gray"
+                  }; border-color: "black";`,
                 },
                 onclick: () => {
                   this.ee.emit("likeTrack", this);
@@ -851,6 +859,7 @@ export default class {
       author_profile: this.author_profile,
       logged_user: this.logged_user,
       uid: this.uid,
+      is_liked: this.is_liked,
     };
 
     if (this.fadeIn) {

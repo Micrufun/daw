@@ -416,6 +416,7 @@ export default class {
           const author_profile = info.author_profile || null;
           const logged_user = info.logged_user || null;
           const uid = info.uid || null;
+          const is_liked = info.is_liked || null;
 
           // webaudio specific playout for now.
           const playout = new Playout(
@@ -467,6 +468,7 @@ export default class {
           track.set_author_profile(author_profile);
           track.set_logged_user(logged_user);
           track.set_uid(uid);
+          track.set_is_liked(is_liked);
 
           if (muted) {
             this.muteTrack(track);

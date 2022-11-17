@@ -599,7 +599,7 @@ export default class {
       "div.controls",
       {
         attributes: {
-          style: `height: ${numChan * data.height}px; width: ${
+          style: `height: ${numChan * data.height + 32}px; width: ${
             data.controls.width
           }px; position: absolute; left: 0; z-index: 10;`,
         },
@@ -760,8 +760,8 @@ export default class {
         `div.channel.channel-${channelNum}`,
         {
           attributes: {
-            style: `height: ${data.height}px; width: ${width}px; top: ${
-              channelNum * data.height
+            style: `height: ${data.height + 32}px; width: ${width}px; top: ${
+              channelNum * (data.height + 32)
             }px; left: ${startX}px; position: absolute; margin: 0; padding: 0; z-index: 1;`,
           },
         },
@@ -800,7 +800,7 @@ export default class {
       "div.waveform",
       {
         attributes: {
-          style: `height: ${numChan * data.height}px; position: relative;`,
+          style: `height: ${numChan * data.height + 32}px; position: relative;`,
         },
       },
       waveformChildren
@@ -825,7 +825,7 @@ export default class {
       {
         attributes: {
           style: `margin-left: ${channelMargin}px; height: ${
-            data.height * numChan
+            data.height * numChan + 32
           }px;`,
         },
       },

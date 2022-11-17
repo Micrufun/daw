@@ -573,6 +573,26 @@ export default class {
           ])
         );
       }
+
+      if (widgets.like) {
+        controls.push(
+          h("div.btn-group", [
+            h(
+              "button.btn.btn-danger.btn-xs.track-like",
+              {
+                attributes: {
+                  type: "button",
+                  title: "Like track",
+                },
+                onclick: () => {
+                  this.ee.emit("likeTrack", this);
+                },
+              },
+              [h("i.fas.fa-heart")]
+            ),
+          ])
+        );
+      }
     }
 
     return h(

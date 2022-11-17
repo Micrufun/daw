@@ -588,9 +588,7 @@ export default class {
                 attributes: {
                   type: "button",
                   title: "Like track",
-                  style: `color: ${
-                    this.is_liked ? "red" : "gray"
-                  }; border-color: "black";`,
+                  style: `color: ${this.is_liked ? "red" : "gray"};`,
                 },
                 onclick: () => {
                   this.ee.emit("likeTrack", this);

@@ -288,6 +288,11 @@ export default class {
       this.drawRequest();
     });
 
+    ee.on("likeTrack", (track) => {
+      // Re-render to change color of heart icon and to increment/decrement heart count.
+      this.drawRequest();
+    });
+
     ee.on("volumechange", (volume, track) => {
       track.setGainLevel(volume / 100);
       this.drawRequest();

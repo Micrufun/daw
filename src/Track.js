@@ -591,6 +591,8 @@ export default class {
                   style: `color: ${this.is_liked ? "red" : "gray"};`,
                 },
                 onclick: () => {
+                  this.set_is_liked(!this.is_liked);
+                  // Re-render to change color of heart icon and to increment/decrement heart count.
                   this.ee.emit("likeTrack", this);
                 },
               },

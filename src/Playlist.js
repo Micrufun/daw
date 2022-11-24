@@ -534,11 +534,8 @@ export default class {
     }
 
     this.isRendering = true;
-    this.offlineAudioContext = new (window.OfflineAudioContext || window.webkitOfflineAudioContext)(
-      2,
-      44100 * this.duration,
-      44100
-    );
+    this.offlineAudioContext = new (window.OfflineAudioContext ||
+      window.webkitOfflineAudioContext)(2, 44100 * this.duration, 44100);
 
     const setUpChain = [];
 

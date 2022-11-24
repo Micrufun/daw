@@ -23,7 +23,6 @@ export default class {
     this.soloedTracks = [];
     this.mutedTracks = [];
     this.collapsedTracks = [];
-    this.likedTracks = [];
     this.playoutPromises = [];
 
     this.cursor = 0;
@@ -289,11 +288,6 @@ export default class {
       this.drawRequest();
     });
 
-    ee.on("likeTrack", (track, opts) => {
-      this.likeTrack(track, opts);
-      this.drawRequest();
-    });
-
     ee.on("volumechange", (volume, track) => {
       track.setGainLevel(volume / 100);
       this.drawRequest();
@@ -476,7 +470,6 @@ export default class {
           track.set_logged_user(logged_user);
           track.set_uid(uid);
           track.set_is_liked(is_liked);
-          this.likeTrack(track, { is_liked: is_liked }); // To adjust `this.likedTracks` accordingly.
 
           if (muted) {
             this.muteTrack(track);
@@ -674,18 +667,6 @@ export default class {
     }
   }
 
-  likeTrack(track, opts) {
-    if (opts.is_liked) {
-      this.likedTracks.push(track);
-    } else {
-      const index = this.likedTracks.indexOf(track);
-
-      if (index > -1) {
-        this.likedTracks.splice(index, 1);
-      }
-    }
-  }
-
   removeTrack(track) {
     if (track.isPlaying()) {
       track.scheduleStop();
@@ -695,7 +676,6 @@ export default class {
       this.mutedTracks,
       this.soloedTracks,
       this.collapsedTracks,
-      this.likedTracks,
       this.tracks,
     ];
     trackLists.forEach((list) => {
@@ -1037,8 +1017,6 @@ export default class {
   renderTrackSection() {
     const trackElements = this.tracks.map((track) => {
       const collapsed = this.collapsedTracks.indexOf(track) > -1;
-      const is_liked = this.likedTracks.indexOf(track) > -1;
-      track.set_is_liked(is_liked);
       return track.render(
         this.getTrackRenderData({
           isActive: this.isActiveTrack(track),

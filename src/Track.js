@@ -591,7 +591,7 @@ export default class {
                   style: `color: ${this.is_liked ? "red" : "gray"};`,
                 },
                 onclick: () => {
-                  this.ee.emit("likeTrack", this, { is_liked: !this.is_liked });
+                  this.ee.emit("likeTrack", this);
                 },
               },
               [h("i.fas.fa-heart")]

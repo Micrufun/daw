@@ -42,6 +42,7 @@ export default class {
     this.logged_user = null;
     this.uid = null;
     this.is_liked = null;
+    this.like_count = null;
   }
 
   setEventEmitter(ee) {
@@ -276,6 +277,10 @@ export default class {
 
   set_is_liked(is_liked) {
     this.is_liked = is_liked;
+  }
+
+  set_like_count(like_count) {
+    this.like_count = like_count;
   }
 
   /*
@@ -592,12 +597,19 @@ export default class {
                 },
                 onclick: () => {
                   this.set_is_liked(!this.is_liked);
+                  if (this.is_liked) {
+                    this.set_like_count(this.like_count + 1);
+                  } else {
+                    this.set_like_count(this.like_count - 1);
+                  }
+
                   // Re-render to change color of heart icon and to increment/decrement heart count.
                   this.ee.emit("likeTrack", this);
                 },
               },
               [h("i.fas.fa-heart")]
             ),
+            h("span", [this.like_count]),
           ])
         );
       }
@@ -860,6 +872,7 @@ export default class {
       logged_user: this.logged_user,
       uid: this.uid,
       is_liked: this.is_liked,
+      like_count: this.like_count,
     };
 
     if (this.fadeIn) {

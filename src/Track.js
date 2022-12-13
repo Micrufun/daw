@@ -599,12 +599,13 @@ export default class {
                   this.set_is_liked(!this.is_liked);
                   if (this.is_liked) {
                     this.set_like_count(this.like_count + 1);
+                    // Re-render to change color of heart icon and to increment/decrement heart count.
+                    this.ee.emit("likeTrack", this);
                   } else {
                     this.set_like_count(this.like_count - 1);
+                    // Re-render to change color of heart icon and to increment/decrement heart count.
+                    this.ee.emit("likeundoTrack", this);
                   }
-
-                  // Re-render to change color of heart icon and to increment/decrement heart count.
-                  this.ee.emit("likeTrack", this);
                 },
               },
               [h("i.fas.fa-heart")]

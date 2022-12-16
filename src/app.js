@@ -24,6 +24,7 @@ export function init(options = {}, ee = EventEmitter()) {
         collapse: true,
         remove: true,
         removeFromDatabase: true,
+        like: true,
       },
     },
     colors: {

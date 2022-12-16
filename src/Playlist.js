@@ -288,6 +288,16 @@ export default class {
       this.drawRequest();
     });
 
+    ee.on("likeTrack", (track) => {
+      // Re-render to change color of heart icon and to increment/decrement heart count.
+      this.drawRequest();
+    });
+
+    ee.on("likeundoTrack", (track) => {
+      // Re-render to change color of heart icon and to increment/decrement heart count.
+      this.drawRequest();
+    });
+
     ee.on("volumechange", (volume, track) => {
       track.setGainLevel(volume / 100);
       this.drawRequest();
@@ -417,6 +427,8 @@ export default class {
           const author_profile = info.author_profile || null;
           const logged_user = info.logged_user || null;
           const uid = info.uid || null;
+          const is_liked = info.is_liked || null;
+          const like_count = info.like_count || 0;
 
           // webaudio specific playout for now.
           const playout = new Playout(
@@ -468,6 +480,8 @@ export default class {
           track.set_author_profile(author_profile);
           track.set_logged_user(logged_user);
           track.set_uid(uid);
+          track.set_is_liked(is_liked);
+          track.set_like_count(like_count);
 
           if (muted) {
             this.muteTrack(track);
@@ -527,11 +541,8 @@ export default class {
     }
 
     this.isRendering = true;
-    this.offlineAudioContext = new (window.OfflineAudioContext || window.webkitOfflineAudioContext)(
-      2,
-      44100 * this.duration,
-      44100
-    );
+    this.offlineAudioContext = new (window.OfflineAudioContext ||
+      window.webkitOfflineAudioContext)(2, 44100 * this.duration, 44100);
 
     const setUpChain = [];
 

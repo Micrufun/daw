@@ -41,6 +41,8 @@ export default class {
     this.author_profile = null;
     this.logged_user = null;
     this.uid = null;
+    this.is_liked = null;
+    this.like_count = null;
   }
 
   setEventEmitter(ee) {
@@ -271,6 +273,14 @@ export default class {
 
   set_uid(uid) {
     this.uid = uid;
+  }
+
+  set_is_liked(is_liked) {
+    this.is_liked = is_liked;
+  }
+
+  set_like_count(like_count) {
+    this.like_count = like_count;
   }
 
   /*
@@ -573,13 +583,44 @@ export default class {
           ])
         );
       }
+
+      if (widgets.like) {
+        controls.push(
+          h("div.btn-group", [
+            h(
+              "button.btn.btn-xs.track-like",
+              {
+                attributes: {
+                  type: "button",
+                  title: "Like track",
+                  style: `color: ${this.is_liked ? "red" : "gray"};`,
+                },
+                onclick: () => {
+                  this.set_is_liked(!this.is_liked);
+                  if (this.is_liked) {
+                    this.set_like_count(this.like_count + 1);
+                    // Re-render to change color of heart icon and to increment/decrement heart count.
+                    this.ee.emit("likeTrack", this);
+                  } else {
+                    this.set_like_count(this.like_count - 1);
+                    // Re-render to change color of heart icon and to increment/decrement heart count.
+                    this.ee.emit("likeundoTrack", this);
+                  }
+                },
+              },
+              [h("i.fas.fa-heart")]
+            ),
+            h("span", [this.like_count]),
+          ])
+        );
+      }
     }
 
     return h(
       "div.controls",
       {
         attributes: {
-          style: `height: ${numChan * data.height}px; width: ${
+          style: `height: ${numChan * data.height + 32}px; width: ${
             data.controls.width
           }px; position: absolute; left: 0; z-index: 10;`,
         },
@@ -805,7 +846,7 @@ export default class {
       {
         attributes: {
           style: `margin-left: ${channelMargin}px; height: ${
-            data.height * numChan
+            data.height * numChan + 32
           }px;`,
         },
       },
@@ -831,6 +872,8 @@ export default class {
       author_profile: this.author_profile,
       logged_user: this.logged_user,
       uid: this.uid,
+      is_liked: this.is_liked,
+      like_count: this.like_count,
     };
 
     if (this.fadeIn) {

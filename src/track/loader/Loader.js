@@ -11,9 +11,22 @@ export default class {
     this.ac = audioContext;
     this.audioRequestState = STATE_UNINITIALIZED;
     this.ee = ee;
+    this.audioStack = []; // Needed for streaming.
   }
 
   setStateChange(state) {
+    this.audioRequestState = state;
+    this.ee.emit("audiorequeststatechange", this.audioRequestState, this.src);
+  }
+
+  setStateDecoding() {
+    const state = STATE_DECODING;
+    this.audioRequestState = state;
+    this.ee.emit("audiorequeststatechange", this.audioRequestState, this.src);
+  }
+
+  setStateFinished() {
+    const state = STATE_FINISHED;
     this.audioRequestState = state;
     this.ee.emit("audiorequeststatechange", this.audioRequestState, this.src);
   }

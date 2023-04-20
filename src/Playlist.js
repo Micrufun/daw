@@ -381,6 +381,13 @@ export default class {
         this.isScrolling = false;
       }, 200);
     });
+
+    // Any code can request info to see which tracks are available.
+    // This signal/slot is used to get the tracks of the playlist.
+    ee.on("inforequest", () => {
+      var info = this.getInfo();
+      this.ee.emit("inforesponse", info);
+    });
   }
 
   load(trackList) {

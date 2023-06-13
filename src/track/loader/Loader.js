@@ -11,9 +11,22 @@ export default class {
     this.ac = audioContext;
     this.audioRequestState = STATE_UNINITIALIZED;
     this.ee = ee;
+    this.audioStack = []; // Needed for streaming.
   }
 
   setStateChange(state) {
+    this.audioRequestState = state;
+    this.ee.emit("audiorequeststatechange", this.audioRequestState, this.src);
+  }
+
+  setStateDecoding() {
+    const state = STATE_DECODING;
+    this.audioRequestState = state;
+    this.ee.emit("audiorequeststatechange", this.audioRequestState, this.src);
+  }
+
+  setStateFinished() {
+    const state = STATE_FINISHED;
     this.audioRequestState = state;
     this.ee.emit("audiorequeststatechange", this.audioRequestState, this.src);
   }
@@ -40,6 +53,30 @@ export default class {
     return new Promise((resolve, reject) => {
       this.ac.decodeAudioData(
         audioData,
+        (audioBuffer) => {
+          this.audioBuffer = audioBuffer;
+          this.setStateChange(STATE_FINISHED);
+
+          resolve(audioBuffer);
+        },
+        (err) => {
+          if (err === null) {
+            // Safari issues with null error
+            reject(Error("MediaDecodeAudioDataUnknownContentType"));
+          } else {
+            reject(err);
+          }
+        }
+      );
+    });
+  }
+
+  fetchLoad(arrayBuffer) {
+    this.setStateChange(STATE_DECODING);
+
+    return new Promise((resolve, reject) => {
+      this.ac.decodeAudioData(
+        arrayBuffer,
         (audioBuffer) => {
           this.audioBuffer = audioBuffer;
           this.setStateChange(STATE_FINISHED);
